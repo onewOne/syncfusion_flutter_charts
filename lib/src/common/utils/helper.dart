@@ -899,10 +899,16 @@ String getTrimmedText(String text, num labelsExtent, TextStyle labelStyle,
       ? measureText(text, labelStyle, axisRendererDetails!.labelRotation).width
       : measureText(label, labelStyle).width;
   if (size > labelsExtent) {
-    final int textLength = text.length;
+    // final int textLength = text.length;
+    final int textLength = text.runes.length;
     if (isRtl ?? false) {
       for (int i = 0; i < textLength - 1; i++) {
-        label = '...${text.substring(i + 1, textLength)}';
+        // label = '...${text.substring(i + 1, textLength)}';
+        label = '...${runeSubstring(
+          input: text,
+          start: i + 1,
+          end: textLength,
+        )}';
         size = axisRenderer != null
             ? measureText(label, labelStyle, axisRendererDetails!.labelRotation)
                 .width
@@ -913,7 +919,12 @@ String getTrimmedText(String text, num labelsExtent, TextStyle labelStyle,
       }
     } else {
       for (int i = textLength - 1; i >= 0; --i) {
-        label = '${text.substring(0, i)}...';
+        // label = '${text.substring(0, i)}...';
+        label = '${runeSubstring(
+          input: text,
+          start: 0,
+          end: i,
+        )}...';
         size = axisRenderer != null
             ? measureText(label, labelStyle, axisRendererDetails!.labelRotation)
                 .width
@@ -1198,3 +1209,11 @@ bool isTemplateWithinBounds(Rect bounds, Rect templateRect) =>
     templateRect.left + templateRect.width <= bounds.left + bounds.width &&
     templateRect.top >= bounds.top &&
     templateRect.top + templateRect.height <= bounds.top + bounds.height;
+
+String runeSubstring({
+  required String input,
+  required int start,
+  required int end,
+}) {
+  return String.fromCharCodes(input.runes.toList().sublist(start, end));
+}

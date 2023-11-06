@@ -11,6 +11,6 @@ dependencies:
     sdk: flutter
   intl: ^0.18.0
   vector_math: ">=2.1.0 <=3.0.0"
-  syncfusion_flutter_core: ^23.1.43
+  syncfusion_flutter_core: 23.1.43
 
 flutter:
