@@ -145,6 +145,10 @@ class CircularArea extends StatelessWidget {
 
   /// To perform the pointer move event.
   void _performPointerMove(PointerMoveEvent event) {
+    // 防止renderBox为空
+    if (renderBox == null) {
+      return;
+    }
     ChartTouchInteractionArgs touchArgs;
     final Offset position = renderBox.globalToLocal(event.position);
     if (chart.onChartTouchInteractionMove != null) {
